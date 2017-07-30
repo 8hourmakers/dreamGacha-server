@@ -42,7 +42,7 @@ WSGI_APPLICATION = 'wsgi.application'
 ADMINS = (
     ('Author', 'richard.hendriks@dreamgacha.com'),
 )
-
+ALLOWED_HOSTS = ['*']
 # Postgres
 DATABASES = {
     'default': {
