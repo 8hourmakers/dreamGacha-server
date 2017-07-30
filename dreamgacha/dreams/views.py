@@ -20,8 +20,10 @@ class DreamCreateListAPIView(APIView):
     def post(self, request, *args, **kwargs):
 
         dummy_response = {
+            "id": 1,
+            "title": "인형들이 나를 잡아먹었다",
             "dream_audio_url": "sample_url",
-            "content": "sample_content",
+            "content": "곰돌이 인형이랑 토끼 인형이 나를 쫓아왔다.",
             "created_timestamp": datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
             "updated_timestamp": datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         }
@@ -33,14 +35,18 @@ class DreamCreateListAPIView(APIView):
 
         dummy_response = [
           {
+            "id": 1,
+            "title": "인형들이 나를 잡아먹었다",
             "dream_audio_url": "sample_url",
-            "content": "sample_content",
+            "content": "곰돌이 인형이랑 토끼 인형이 나를 쫓아왔다.",
             "created_timestamp": datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
             "updated_timestamp": datetime.now().strftime('%Y-%m-%d %H:%M:%S')
           },
           {
+            "id": 1,
+            "title": "인형들이 나를 잡아먹었다",
             "dream_audio_url": "sample_url_2",
-            "content": "sample_content_2",
+            "content": "곰돌이 인형이랑 토끼 인형이 나를 쫓아왔다. 석주가 발을 걸어서 넘어져서 곰인형한테 잡아먹혔다.",
             "created_timestamp": datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
             "updated_timestamp": datetime.now().strftime('%Y-%m-%d %H:%M:%S')
           }
@@ -53,8 +59,10 @@ class DreamRetrieveUpdateDestroyAPIView(APIView):
 
     def update(self, request, *args, **kwargs):
         dummy_response = {
+            "id": 1,
+            "title": "인형들이 나를 잡아먹었다",
             "dream_audio_url": "sample_url",
-            "content": "sample_content",
+            "content": "곰돌이 인형이랑 토끼 인형이 나를 쫓아왔다.",
             "created_timestamp": datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
             "updated_timestamp": datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         }
@@ -68,8 +76,10 @@ class DreamRetrieveUpdateDestroyAPIView(APIView):
 
     def get(self, request, *args, **kwargs):
         dummy_response = {
+            "id": 1,
+            "title": "인형들이 나를 잡아먹었다",
             "dream_audio_url": "sample_url",
-            "content": "sample_content",
+            "content": "곰돌이 인형이랑 토끼 인형이 나를 쫓아왔다.",
             "created_timestamp": datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
             "updated_timestamp": datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         }
