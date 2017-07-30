@@ -22,8 +22,8 @@ class DreamCreateListAPIView(APIView):
         dummy_response = {
             "dream_audio_url": "sample_url",
             "content": "sample_content",
-            "created_timestamp": datetime.now(),
-            "updated_timestamp": datetime.now()
+            "created_timestamp": datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+            "updated_timestamp": datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         }
         return Response(dummy_response, status=status.HTTP_200_OK)
 
@@ -35,14 +35,14 @@ class DreamCreateListAPIView(APIView):
           {
             "dream_audio_url": "sample_url",
             "content": "sample_content",
-            "created_timestamp": datetime.now(),
-            "updated_timestamp": datetime.now()
+            "created_timestamp": datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+            "updated_timestamp": datetime.now().strftime('%Y-%m-%d %H:%M:%S')
           },
           {
             "dream_audio_url": "sample_url_2",
             "content": "sample_content_2",
-            "created_timestamp": datetime.now(),
-            "updated_timestamp": datetime.now()
+            "created_timestamp": datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+            "updated_timestamp": datetime.now().strftime('%Y-%m-%d %H:%M:%S')
           }
         ]
         return Response(dummy_response, status=status.HTTP_200_OK)
@@ -55,8 +55,8 @@ class DreamRetrieveUpdateDestroyAPIView(APIView):
         dummy_response = {
             "dream_audio_url": "sample_url",
             "content": "sample_content",
-            "created_timestamp": datetime.now(),
-            "updated_timestamp": datetime.now()
+            "created_timestamp": datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+            "updated_timestamp": datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         }
         return Response(dummy_response, status=status.HTTP_200_OK)
 
@@ -70,7 +70,7 @@ class DreamRetrieveUpdateDestroyAPIView(APIView):
         dummy_response = {
             "dream_audio_url": "sample_url",
             "content": "sample_content",
-            "created_timestamp": datetime.now(),
-            "updated_timestamp": datetime.now()
+            "created_timestamp": datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+            "updated_timestamp": datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         }
         return Response(dummy_response, status=status.HTTP_200_OK)
