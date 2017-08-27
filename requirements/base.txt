@@ -31,3 +31,6 @@ django-rq==0.9.6
 
 # Time zones support
 pytz==2017.2
+
+# Google Speech APi
+google-cloud-speech==0.28.0

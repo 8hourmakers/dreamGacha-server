@@ -3,6 +3,7 @@ from os.path import join
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+BASE_PREFIX = '/dreamgacha'
 
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -79,7 +80,7 @@ STATICFILES_FINDERS = (
 
 # Media files
 MEDIA_ROOT = join(os.path.dirname(BASE_DIR), 'media')
-MEDIA_URL = '/media/'
+MEDIA_URL = BASE_PREFIX + '/media/'
 
 TEMPLATES = [
     {
@@ -185,7 +186,7 @@ AUTH_USER_MODEL = 'users.User'
 
 # Django Rest Framework
 REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'DEFAULT_PAGINATION_CLASS': 'config.pagination.Pagination30',
     'PAGE_SIZE': int(os.getenv('DJANGO_PAGINATION_LIMIT', 10)),
     'DATETIME_FORMAT': '%Y-%m-%dT%H:%M:%S%z',
     'DEFAULT_RENDERER_CLASSES': (
@@ -199,4 +200,5 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     )
+
 }

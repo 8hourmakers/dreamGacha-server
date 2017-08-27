@@ -8,9 +8,11 @@ from django.utils.encoding import python_2_unicode_compatible
 
 class Dream(models.Model):
     dream_audio_url = models.CharField(max_length=100)
+    title = models.CharField(max_length=100, default='title')
     content = models.TextField(max_length=1000)
+    owner = models.ForeignKey('users.User', null=True)
     created_timestamp = models.DateTimeField(auto_now_add=True)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.content
+        return self.title
