@@ -7,13 +7,17 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic.base import RedirectView
 
+from rest_framework_swagger.views import get_swagger_view
+
+schema_view = get_swagger_view(title='DreamGacha API')
 
 urlpatterns = [
+    url(r'^dreamgacha/$', schema_view),
     url(r'^dreamgacha/admin/', admin.site.urls),
     url(r'^dreamgacha/api/v1.0/', include('urls_api', namespace='rest_api')),
 
     # the 'api-root' from django rest-frameworks default router
     # http://www.django-rest-framework.org/api-guide/routers/#defaultrouter
-    url(r'^$', RedirectView.as_view(url=reverse_lazy('api-root'), permanent=False)),
+    # url(r'^$', RedirectView.as_view(url=reverse_lazy('api-root'), permanent=False)),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -16,6 +16,7 @@ INSTALLED_APPS = (
     # Third party apps
     'rest_framework',            # utilities for rest apis
     'rest_framework.authtoken',  # token authentication
+    'rest_framework_swagger',
 
     # Your apps
     'dreams',
