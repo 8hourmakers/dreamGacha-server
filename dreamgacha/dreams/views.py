@@ -1,5 +1,6 @@
 import os
 import subprocess
+import uuid
 from rest_framework import viewsets, mixins
 from rest_framework.permissions import AllowAny
 
@@ -41,20 +42,18 @@ def simple_upload(request):
             })
         fs = FileSystemStorage()
         filename = fs.save(myfile.name, myfile)
-
         wav_filename = filename.split('.')[0] + '.wav'
-        origin_file_ext = filename.split('.')[-1]
-        if origin_file_ext not in ['wav', 'm4a', 'mp3', 'amr']:
-            return render(request, 'web/simple_upload.html', {
-                'uploaded_file_url': '',
-                'stt_result': 'Invalid Format'
-            })
-        origin_file_path = os.path.join(fs.location, filename)
         destination_file_path = os.path.join(fs.location, wav_filename)
-
-        subprocess.check_output(['ffmpeg', '-i', str(origin_file_path), '-ac', '1', '-ar', '44100', destination_file_path])
+        if not myfile.name.endswith('.wav'):
+            origin_file_ext = filename.split('.')[-1]
+            if origin_file_ext not in ['wav', 'm4a', 'mp3', 'amr']:
+                return render(request, 'web/simple_upload.html', {
+                    'uploaded_file_url': '',
+                    'stt_result': 'Invalid Format'
+                })
+            origin_file_path = os.path.join(fs.location, filename)
+            subprocess.check_output(['ffmpeg', '-i', str(origin_file_path), '-ac', '1', '-ar', '44100', destination_file_path])
         stt_result = stt(os.path.join(fs.location, destination_file_path))
-        print('stt_result', stt_result)
         uploaded_file_url = fs.url(filename)
         return render(request, 'web/simple_upload.html', {
             'uploaded_file_url': uploaded_file_url,
@@ -73,6 +72,7 @@ class DreamAudioCreateAPIView(APIView):
         if not audio_file:
             return Response({'message': 'audio file required'}, status=status.HTTP_406_NOT_ACCEPTABLE)
         fs = FileSystemStorage()
+
         filename = fs.save(audio_file.name, audio_file)
         wav_filename = filename.split('.')[0] + '.wav'
         origin_file_ext = filename.split('.')[-1]
@@ -81,9 +81,9 @@ class DreamAudioCreateAPIView(APIView):
             return Response({'message': 'invalid format'}, status=status.HTTP_406_NOT_ACCEPTABLE)
         origin_file_path = os.path.join(fs.location, filename)
         destination_file_path = os.path.join(fs.location, wav_filename)
-
-        subprocess.check_output(
-            ['ffmpeg', '-i', str(origin_file_path), '-ac', '1', '-ar', '44100', destination_file_path])
+        if origin_file_ext != 'wav':
+            subprocess.check_output(
+                ['ffmpeg', '-i', str(origin_file_path), '-ac', '1', '-ar', '44100', destination_file_path])
         stt_result = stt(os.path.join(fs.location, destination_file_path))
         # Check stt recognize results
         if not stt_result:
