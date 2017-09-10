@@ -21,9 +21,13 @@ from .serializers import DreamSerializer
 from .models import Dream
 from config.pagination import Pagination30
 
+def check_duration_time(filepath):
+    duration = subprocess.check_output(['ffmpeg', '-i', str(filepath)])
+    print(duration)
+
 def simple_upload(request):
     """
-    ffmpeg -i 5.m4a -ac 1 -ar 16000 5.wav
+    ffmpeg -i 5.m4a -ac 1 -ar 44100 5.wav
     :param request:
     :return:
     """
@@ -47,7 +51,8 @@ def simple_upload(request):
             })
         origin_file_path = os.path.join(fs.location, filename)
         destination_file_path = os.path.join(fs.location, wav_filename)
-        subprocess.check_output(['ffmpeg', '-i', str(origin_file_path), '-ac', '1', '-ar', '16000', destination_file_path])
+
+        subprocess.check_output(['ffmpeg', '-i', str(origin_file_path), '-ac', '1', '-ar', '44100', destination_file_path])
         stt_result = stt(os.path.join(fs.location, destination_file_path))
         print('stt_result', stt_result)
         uploaded_file_url = fs.url(filename)
@@ -58,6 +63,9 @@ def simple_upload(request):
     return render(request, 'web/simple_upload.html')
 
 class DreamAudioCreateAPIView(APIView):
+    """
+    ffmpeg -i 3.wav 2>&1 | grep Duration | awk '{print $2}' | tr -d ,
+    """
     permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
@@ -73,8 +81,9 @@ class DreamAudioCreateAPIView(APIView):
             return Response({'message': 'invalid format'}, status=status.HTTP_406_NOT_ACCEPTABLE)
         origin_file_path = os.path.join(fs.location, filename)
         destination_file_path = os.path.join(fs.location, wav_filename)
+
         subprocess.check_output(
-            ['ffmpeg', '-i', str(origin_file_path), '-ac', '1', '-ar', '16000', destination_file_path])
+            ['ffmpeg', '-i', str(origin_file_path), '-ac', '1', '-ar', '44100', destination_file_path])
         stt_result = stt(os.path.join(fs.location, destination_file_path))
         # Check stt recognize results
         if not stt_result:
